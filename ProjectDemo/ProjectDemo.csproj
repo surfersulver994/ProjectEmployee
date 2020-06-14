@@ -223,6 +223,7 @@
     <Content Include="Views\Subform\Create.cshtml" />
     <Content Include="Views\Subform\SubformGridview.cshtml" />
     <Content Include="Views\Subform\Edit.cshtml" />
+    <Content Include="Views\Subform\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
