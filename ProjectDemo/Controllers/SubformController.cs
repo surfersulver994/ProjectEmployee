@@ -28,18 +28,18 @@ namespace ProjectDemo.Controllers
                 sqlCon.Open();
                 SqlDataAdapter sqlDa = new SqlDataAdapter("SELECT * FROM [NEWTEMPDB].[dbo].[Subform]", sqlCon);
                 ///trial code 
-                SqlDataAdapter sqlDaa = new SqlDataAdapter("SELECT [ProductCode] FROM [NEWTEMPDB].[dbo].[Product]", sqlCon);
-                sqlDaa.Fill(dtblSubform);
-                List<int> ProductCodeList = new List<int>();
-                foreach (DataRow dr in dtblSubform.Rows)
-                {
-                    int item1 = dr.Field<int>("ProductCode");
+                //SqlDataAdapter sqlDaa = new SqlDataAdapter("SELECT [ProductCode] FROM [NEWTEMPDB].[dbo].[Product]", sqlCon);
+                //sqlDaa.Fill(dtblSubform);
+                //List<int> ProductCodeList = new List<int>();
+                //foreach (DataRow dr in dtblSubform.Rows)
+                //{
+                //    int item1 = dr.Field<int>("ProductCode");
 
-                    ProductCodeList.Add(item1);
-                    ProductCodeList = ProductCodeList.ToList();
-                    SelectList list = new SelectList(ProductCodeList, "", "");
-                    ViewBag.ProductCodeList = list;
-                }
+                //    ProductCodeList.Add(item1);
+                //    ProductCodeList = ProductCodeList.ToList();
+                //    SelectList list = new SelectList(ProductCodeList, "", "");
+                //    ViewBag.ProductCodeList = list;
+                //}
                 /////trial code end
                 sqlDa.Fill(dtblSubform);
                 //DataRow[] drA = new DataRow[dtblSubform.Rows.Count];
