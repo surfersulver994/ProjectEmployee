@@ -1,16 +1,21 @@
 ﻿@model System.Data.DataTable
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "SubformGridview";
 }
-
+<h2>SubformGridview</h2>
 <link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+
+
 <table class="table table-bordered table-striped">
     <tr>
-        <th>OrderID</th>
-        <th>OrderDate</th>
-        <th>CustomerID</th>
-        <th>TotalQty</th>
-        <th>TotalQty</th>
+        <th>Subform ID</th>
+@*        <th>Order ID</th>*@
+        <th>Product Code</th>
+        <th>Product Image</th>
+        <th>Unit</th>
+        <th>Rate</th>
+        <th>Quantity</th>
+        <th>Amount</th>
         <th>Options</th>
     </tr>
 
@@ -18,17 +23,20 @@
     {
         <tr>
             <td>@Model.Rows[i][0]</td>
-            <td>@Model.Rows[i][1]</td>
+@*            <td>@Model.Rows[i][1]</td>*@
             <td>@Model.Rows[i][2]</td>
             <td>@Model.Rows[i][3]</td>
             <td>@Model.Rows[i][4]</td>
+            <td>@Model.Rows[i][5]</td>
+            <td>@Model.Rows[i][6]</td>
+            <td>@Model.Rows[i][7]</td>
             <td>
-                <a href="@Url.Action("Edit", "Order", new { @id = @Model.Rows[i][0] })">Edit</a>
-                <a href="@Url.Action("Delete", "Order", new { @id = @Model.Rows[i][0] })">Delete</a>
-                <a href="@Url.Action("SubformGridview", "Subform", new { @id = @Model.Rows[i][0] })">Order Subform</a>
+                <a href="@Url.Action("Edit", "Subform", new { @id = @Model.Rows[i][0] })">Edit</a>
+                <a href="@Url.Action("Delete", "Subform", new { @id = @Model.Rows[i][0] })">Delete</a>
+@*                <a href="@Url.Action("Subform", "Subform", new { @id = @Model.Rows[i][0] })">Order Subform</a>*@
             </td>
         </tr>
     }
 </table>
 
-<a href="@Url.Action("Create", "Order")">Add Product</a>
+<a href="@Url.Action("Create", "Subform")">Add Suborder Item</a>
