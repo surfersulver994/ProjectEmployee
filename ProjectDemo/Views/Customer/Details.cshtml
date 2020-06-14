@@ -1,0 +1,38 @@
+﻿@model List<ProjectDemo.Models.Customer>
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Customer</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">Addres</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Addres)
+    </div>
+
+    <div class="display-label">City</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.City)
+    </div>
+
+    <div class="display-label">pincode</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.pincode)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+ 

@@ -1,0 +1,42 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Show_data</title>
+    <link href="../../bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <td>OrderID</td>
+                    <td>OrderDate</td>
+                    <td>CustomerID</td>
+                    <td>TotalQty</td>
+                    <td>TotalAmount</td>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (System.Data.DataRow dr in ViewBag.order)
+                    {
+                    <tr>
+                        <td>@dr["OrderID"]</td>
+                        <td>@dr["OrderDate"]</td>
+                        <td>@dr["CustomerID"]</td>
+                        <td>@dr["TotalQty"]</td>
+                        <td>@dr["TotalAmount"]</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
