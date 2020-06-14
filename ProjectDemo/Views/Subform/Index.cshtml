@@ -9,7 +9,7 @@
 <table class="table table-bordered table-striped">
     <tr>
         <th>Subform ID</th>
-@*        <th>Order ID</th>*@
+        <th>Order ID</th>
         <th>Product Code</th>
         <th>Product Image</th>
         <th>Unit</th>
@@ -23,7 +23,7 @@
     {
         <tr>
             <td>@Model.Rows[i][0]</td>
-@*            <td>@Model.Rows[i][1]</td>*@
+            <td>@Model.Rows[i][1]</td>
             <td>@Model.Rows[i][2]</td>
             <td>@Model.Rows[i][3]</td>
             <td>@Model.Rows[i][4]</td>
@@ -33,7 +33,7 @@
             <td>
                 <a href="@Url.Action("Edit", "Subform", new { @id = @Model.Rows[i][0] })">Edit</a>
                 <a href="@Url.Action("Delete", "Subform", new { @id = @Model.Rows[i][0] })">Delete</a>
-@*                <a href="@Url.Action("Subform", "Subform", new { @id = @Model.Rows[i][0] })">Order Subform</a>*@
+                @*<a href="@Url.Action("Subform", "Subform", new { @id = @Model.Rows[i][0] })">Order Subform</a>*@
             </td>
         </tr>
     }
