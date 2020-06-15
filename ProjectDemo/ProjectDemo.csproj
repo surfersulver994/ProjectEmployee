@@ -212,9 +212,6 @@
     <Content Include="Views\Customer\Edit.cshtml" />
     <Content Include="Views\Customer\Delete.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
-    <Content Include="Views\Product\Create.cshtml" />
-    <Content Include="Views\Product\View.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Home\Show_data.cshtml" />
     <Content Include="Views\Home\Add_record.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />

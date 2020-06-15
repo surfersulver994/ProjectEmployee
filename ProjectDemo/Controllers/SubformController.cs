@@ -7,14 +7,20 @@ using System.Data;
 using System.Data.SqlClient;
 using ProjectDemo.Models;
 using System.Configuration;
+using System.IO;
+using System.Data.OleDb;
+
 
 namespace ProjectDemo.Controllers
 {
     public class SubformController : Controller
     {
-        static string ApathX = System.Web.HttpContext.Current.Request.Url.AbsolutePath.ToString();
-        string OrderId = ApathX.Substring(25);
+        //static string ApathX = System.Web.HttpContext.Current.Request.Url.AbsolutePath.ToString();
+        //string OrderId = ApathX.Substring(25);
+        string OrderId = "";
         string connectionString = @"data source=DESKTOP-7R1I2HK; initial catalog=NEWTEMPDB; integrated security=True; MultipleActiveResultSets=True";
+
+
         //
         // GET: /Subform/
 
@@ -94,6 +100,7 @@ namespace ProjectDemo.Controllers
         public ActionResult Create(SubformModel subformModel)
         {
             string aOrderId = OrderId;
+            aOrderId = "2";
             try
             {
                 using (SqlConnection sqlCon = new SqlConnection(connectionString))
@@ -189,6 +196,7 @@ namespace ProjectDemo.Controllers
         [HttpPost]
         public ActionResult Edit(SubformModel subformModel, int id)
         {
+            OrderId = "2";
             try
             {
 
@@ -272,65 +280,149 @@ namespace ProjectDemo.Controllers
             CascadingModel model = new CascadingModel();
             switch (type)
             {
-                case "ProductID":
-                    model.ProductImageA = PopulateDropDown("SELECT StateId, StateName FROM States WHERE CountryId = " + value, "StateName", "StateId");
-                    break;
-                case "ProductIDA":
-                    model.UnitA = PopulateDropDown("SELECT CityId, CityName FROM Cities WHERE StateId = " + value, "CityName", "CityId");
-                    break;
-                case "ProductIDB":
-                    model.RateA = PopulateDropDown("SELECT CityId, CityName FROM Cities WHERE StateId = " + value, "CityName", "CityId");
-                    break;
+                //case "ProductID":
+                //    model.ProductImageA = PopulateDropDown("SELECT StateId, StateName FROM States WHERE CountryId = " + value, "StateName", "StateId");
+                //    break;
+                //case "ProductIDA":
+                //    model.UnitA = PopulateDropDown("SELECT CityId, CityName FROM Cities WHERE StateId = " + value, "CityName", "CityId");
+                //    break;
+                //case "ProductIDB":
+                //    model.RateA = PopulateDropDown("SELECT CityId, CityName FROM Cities WHERE StateId = " + value, "CityName", "CityId");
+                //    break;
             }
             return Json(model);
         }
 
         [HttpPost]
-        public ActionResult Index(int ProductCode)
+        public ActionResult Index(HttpPostedFileBase postedFile)
         {
-            CascadingModel model = new CascadingModel();
-            model.ProductImageA = PopulateDropDown("SELECT ProductCode, ProductImage FROM Subform", "ProductImage", "ProductImage");
-            model.UnitA = PopulateDropDown("SELECT ProductCode, Unit FROM Subform WHERE ProductCode = " + ProductCode, "ProductCode", "ProductCode");
-            model.RateA = PopulateDropDown("SELECT ProductCode, Rate FROM Subform WHERE ProductCode = " + ProductCode, "ProductCode", "ProductCode");
-            return View(model);
-        }
-
-
-        private static List<SelectListItem> PopulateDropDown(string query, string textColumn, string valueColumn)
-        {
-            List<SelectListItem> items = new List<SelectListItem>();
-            string connectionString = @"data source=DESKTOP-7R1I2HK; initial catalog=NEWTEMPDB; integrated security=True; MultipleActiveResultSets=True";
-            using (SqlConnection con = new SqlConnection(connectionString))
+            DataTable dtblSubform = new DataTable();
+            DataSet ds = new DataSet();
+            string filePath = string.Empty;
+            if (postedFile != null)
             {
-                using (SqlCommand cmd = new SqlCommand(query))
+                string path = Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(path))
                 {
-                    cmd.Connection = con;
-                    con.Open();
-                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    Directory.CreateDirectory(path);
+                }
+
+                filePath = path + Path.GetFileName(postedFile.FileName);
+                string extension = Path.GetExtension(postedFile.FileName);
+                postedFile.SaveAs(filePath);
+
+                string conString = string.Empty;
+                switch (extension)
+                {
+                    case ".xls": //Excel 97-03.
+                        conString = ConfigurationManager.ConnectionStrings["Excel03ConString"].ConnectionString;
+                        break;
+                    case ".xlsx": //Excel 07 and above.
+                        conString = ConfigurationManager.ConnectionStrings["Excel07ConString"].ConnectionString;
+                        break;
+                }
+
+                conString = string.Format(conString, filePath);
+
+                using (OleDbConnection connExcel = new OleDbConnection(conString))
+                {
+                    using (OleDbCommand cmdExcel = new OleDbCommand())
                     {
-                        while (sdr.Read())
+                        using (OleDbDataAdapter odaExcel = new OleDbDataAdapter())
                         {
-                            items.Add(new SelectListItem
+                            cmdExcel.Connection = connExcel;
+
+                            //Get the name of First Sheet.
+                            connExcel.Open();
+                            DataTable dtExcelSchema;
+                            dtExcelSchema = connExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                            string sheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
+                            connExcel.Close();
+
+                            //Read Data from First Sheet.
+                            connExcel.Open();
+                            cmdExcel.CommandText = "SELECT * From [" + sheetName + "]";
+                            odaExcel.SelectCommand = cmdExcel;
+                            odaExcel.Fill(ds);
+
+                            foreach (DataTable table in ds.Tables)
                             {
-                                Text = sdr[textColumn].ToString(),
-                                Value = sdr[valueColumn].ToString()
-                            });
+                                try
+                                {
+                                    foreach (DataRow dr in table.Rows)
+                                    {
+                                        string OrderID = dr.Field<double>("OrderID").ToString();
+                                        string ProductCode = dr.Field<double>("ProductCode").ToString();
+                                        string Quantity = dr.Field<double>("Quantity").ToString();
+                                        OrderUpload(OrderID,ProductCode,Quantity);
+                                        
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+ 
+                                }
+                            }
+
+                          
+                            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+                            {
+                                sqlCon.Open();
+                                SqlDataAdapter sqlDa = new SqlDataAdapter("SELECT [SubformID],[OrderID],[ProductCode],[ProductImage],[Unit],[Rate],[Quantity],[Amount]FROM [NEWTEMPDB].[dbo].[Subform]", sqlCon);
+                                sqlDa.Fill(dtblSubform);
+                            }
+
+                            connExcel.Close();  
                         }
                     }
-                    con.Close();
                 }
             }
-
-            return items;
+            return View(dtblSubform);
         }
 
-        [HttpGet]
-        public ActionResult ImportExcel()
+        private void OrderUpload(string OrderID, string ProductCode, string Quantity)
         {
-            return null;
+            string ProductImage=string.Empty;
+            int Unit = 0;
+            int Rate = 0;
+            int Amount = 0;
+            try
+            {
+                using (SqlConnection sqlCon = new SqlConnection(connectionString))
+                {
+                    
+                    sqlCon.Open();
+                    DataTable dtblSubform = new DataTable();
+                    SqlDataAdapter sqlDaa = new SqlDataAdapter("SELECT [ProductImage],[Unit],[Rate] FROM [NEWTEMPDB].[dbo].[Product] WHERE [ProductCode]="+ProductCode+"", sqlCon);
+                    sqlDaa.Fill(dtblSubform);
+                    foreach (DataRow row in dtblSubform.Rows)
+                    {
+                        ProductImage = row.Field<string>("ProductImage");
+                        Unit = row.Field<int>("Unit");
+                        Rate = row.Field<int>("Rate");
+                    }
+                    int aQuantity = Convert.ToInt32(Quantity);
+                    Amount = Rate * aQuantity;
+                    string query = "INSERT INTO [NEWTEMPDB].[dbo].[Subform] VALUES(@OrderID,@ProductCode,@ProductImage,@Unit,@Rate,@Quantity,@Amount)";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.Parameters.AddWithValue("@OrderID", OrderID);
+                    sqlCmd.Parameters.AddWithValue("@ProductCode", ProductCode);
+                    sqlCmd.Parameters.AddWithValue("@ProductImage", ProductImage);
+                    sqlCmd.Parameters.AddWithValue("@Unit", Unit);
+                    sqlCmd.Parameters.AddWithValue("@Rate", Rate);
+                    sqlCmd.Parameters.AddWithValue("@Quantity", Quantity);
+                    sqlCmd.Parameters.AddWithValue("@Amount", Amount);
+                    sqlCmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
 
 
+ 
     }
 }
