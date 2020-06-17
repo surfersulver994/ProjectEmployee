@@ -1,43 +1,35 @@
-﻿@model IEnumerable<ProjectDemo.Models.Product>
+﻿@model System.Data.DataTable
 @{
-    ViewBag.Title = "Home Page";
-    WebGrid webGrid = new WebGrid(source: Model, canSort: false, canPage: false);
+    ViewBag.Title = "Index";
 }
- 
- 
-<div class="row">
-    
-    <div class="col-md-4">
-        <h2>Upload Image</h2>
-        <p>
-           @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-           {
-            <input type="file" name="postedFile" />
-            <input type="submit" id="btnUpload" value="Upload" />
-           }
-        <hr />
-        </p>        
-    </div>
-    
-    <div class="col-md-4">
-        <h2>List Image</h2>
-        <p>
-       @webGrid.GetHtml(
-       htmlAttributes: new { @id = "WebGrid" },
-       columns: webGrid.Columns(
-           webGrid.Column("ProductCode", "ProductCode"),
-           webGrid.Column("ProductName", "ProductName"),
-           webGrid.Column("Unit", "Unit"),
-           webGrid.Column("Rate", "Rate"),
-           webGrid.Column("Description", "Description"),
-           webGrid.Column("Title", "Title"),
-           webGrid.Column("ImagePath", "ImagePath"),
-           webGrid.Column("Image", "PHOTO", format:@<text><img alt="@item.ImagePath" src="@Url.Content(item.ProductName)" style="width:200px; height:auto; padding:30px;" /></text>)))
-        </p>
-    </div>
-    
-</div>
- 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/start/jquery-ui.css" />
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+
+<link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>ProductCode</th>
+        <th>ProductName</th>
+        <th>Unit</th>
+        <th>Rate</th>
+        <th>Description</th>
+        <th>ProductImage</th>
+    </tr>
+
+    @for (int i = 0; i < Model.Rows.Count; i++)
+    {
+        <tr>
+            <td>@Model.Rows[i][0]</td>
+            <td>@Model.Rows[i][1]</td>
+            <td>@Model.Rows[i][2]</td>
+            <td>@Model.Rows[i][3]</td>
+            <td>@Model.Rows[i][4]</td>
+            <td>@Model.Rows[i][5]</td>
+            <td>
+                <a href="@Url.Action("Edit", "Order", new { @id = @Model.Rows[i][0] })">Edit</a>
+                <a href="@Url.Action("Delete", "Order", new { @id = @Model.Rows[i][0] })">Delete</a>
+                <a href="@Url.Action("Index", "Order", new { @id = @Model.Rows[i][0] })">Index</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<a href="@Url.Action("Create", "Product")">Add Product</a>

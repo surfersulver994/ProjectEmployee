@@ -12,6 +12,8 @@ namespace ProjectDemo.Models
         public int Unit { get; set; }
         public int Rate { get; set; }
         public int Description { get; set; }
-        public int ProductImage { get; set; }
+        public string ProductImage { get; set; }
+
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }

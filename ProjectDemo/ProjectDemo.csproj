@@ -100,6 +100,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SubformController.cs" />
     <Compile Include="Models\CascadingModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
@@ -107,6 +108,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\SubformModel.cs" />
     <Compile Include="Models\TestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -221,6 +223,8 @@
     <Content Include="Views\Subform\SubformGridview.cshtml" />
     <Content Include="Views\Subform\Edit.cshtml" />
     <Content Include="Views\Subform\Index.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
