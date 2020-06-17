@@ -60,12 +60,6 @@ namespace ProjectDemo.Controllers
                     sqlCon.Open();
 
 
-
-              
-
-
-                   
-
                     string query = "INSERT INTO [NEWTEMPDB].[dbo].[Product] VALUES(@ProductName,@Unit,@Rate,@Description,@ProductImage)";
                     SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
 
@@ -77,13 +71,14 @@ namespace ProjectDemo.Controllers
                     productModel.ImageFile.SaveAs(fileName);
 
 
+
+
                     sqlCmd.Parameters.AddWithValue("@ProductName", productModel.ProductName);
-                    sqlCmd.Parameters.AddWithValue("@ProductImage", productModel.ProductImage);
+                    sqlCmd.Parameters.AddWithValue("@ProductImage", fileName);
                     sqlCmd.Parameters.AddWithValue("@Rate", productModel.Rate);
                     sqlCmd.Parameters.AddWithValue("@Description", productModel.Description);
                     sqlCmd.Parameters.AddWithValue("@Unit", productModel.Unit);
                     sqlCmd.ExecuteNonQuery();
-                    productModel.ImageFile.SaveAs(fileName);
                 }
                 return RedirectToAction("Index");
             }
