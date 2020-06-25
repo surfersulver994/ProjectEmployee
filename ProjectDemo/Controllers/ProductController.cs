@@ -74,7 +74,7 @@ namespace ProjectDemo.Controllers
 
 
                     sqlCmd.Parameters.AddWithValue("@ProductName", productModel.ProductName);
-                    sqlCmd.Parameters.AddWithValue("@ProductImage", fileName);
+                    sqlCmd.Parameters.AddWithValue("@ProductImage", productModel.ProductImage);
                     sqlCmd.Parameters.AddWithValue("@Rate", productModel.Rate);
                     sqlCmd.Parameters.AddWithValue("@Description", productModel.Description);
                     sqlCmd.Parameters.AddWithValue("@Unit", productModel.Unit);
@@ -90,7 +90,7 @@ namespace ProjectDemo.Controllers
 
         //
         // GET: /Product/Edit/5
-
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             ProductModel productModel = new ProductModel();
@@ -106,10 +106,10 @@ namespace ProjectDemo.Controllers
             if (dtblOrder.Rows.Count == 1)
             {
                 productModel.ProductName = dtblOrder.Rows[0][1].ToString();
-                productModel.Unit = Convert.ToInt32(dtblOrder.Rows[0][0].ToString());
-                productModel.Rate = Convert.ToInt32(dtblOrder.Rows[0][2].ToString());
-                productModel.Description = Convert.ToInt32(dtblOrder.Rows[0][3].ToString());
-                productModel.ProductImage = dtblOrder.Rows[0][3].ToString();
+                productModel.Unit = Convert.ToInt32(dtblOrder.Rows[0][2].ToString());
+                productModel.Rate = Convert.ToInt32(dtblOrder.Rows[0][3].ToString());
+                productModel.Description = Convert.ToInt32(dtblOrder.Rows[0][4].ToString());
+                productModel.ProductImage = dtblOrder.Rows[0][5].ToString();
                 return View(productModel);
             }
             else
@@ -120,20 +120,29 @@ namespace ProjectDemo.Controllers
         // POST: /Product/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(ProductModel productModel)
+        public ActionResult Edit(ProductModel productModel, int id, HttpPostedFileBase ImageFile)
         {
             try
             {
                 using (SqlConnection sqlCon = new SqlConnection(connectionString))
                 {
+                    string fileName = Path.GetFileNameWithoutExtension(productModel.ImageFile.FileName);
+                    string extension = Path.GetExtension(productModel.ImageFile.FileName);
+                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    productModel.ProductImage = "~/Image/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+                    productModel.ImageFile.SaveAs(fileName);
+
+
                     sqlCon.Open();
-                    string query = "UPDATE [NEWTEMPDB].[dbo].[Order] SET ProductName= @ProductName , Unit = @Unit , Rate=@Rate , Description = @Description, ProductImage=@ProductImage Where ProductCode = @ProductCode";
+                    string query = "UPDATE [NEWTEMPDB].[dbo].[Product] SET ProductName= @ProductName , Unit = @Unit , Rate=@Rate , Description = @Description, ProductImage=@ProductImage WHERE ProductCode = @ProductCode";
                     SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                    sqlCmd.Parameters.AddWithValue("@OrderID", productModel.ProductName);
-                    sqlCmd.Parameters.AddWithValue("@OrderDate", productModel.Description);
-                    sqlCmd.Parameters.AddWithValue("@CustomerID", productModel.Rate);
-                    sqlCmd.Parameters.AddWithValue("@TotalQty", productModel.Unit);
-                    sqlCmd.Parameters.AddWithValue("@TotalAmount", productModel.ProductImage);
+                    sqlCmd.Parameters.AddWithValue("@ProductCode", id);
+                    sqlCmd.Parameters.AddWithValue("@ProductName", productModel.ProductName);
+                    sqlCmd.Parameters.AddWithValue("@Unit", productModel.Unit);
+                    sqlCmd.Parameters.AddWithValue("@Rate", productModel.Rate);
+                    sqlCmd.Parameters.AddWithValue("@Description", productModel.Description);
+                    sqlCmd.Parameters.AddWithValue("@ProductImage", productModel.ProductImage);
                     sqlCmd.ExecuteNonQuery();
                 }
                 return RedirectToAction("Index");
@@ -173,6 +182,45 @@ namespace ProjectDemo.Controllers
                 return RedirectToAction("Index");
             }
             catch
+            {
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ViewProduct(int id,ProductModel productModel)
+        {
+            try
+            {
+                DataTable dtblOrder = new DataTable();
+                using (SqlConnection sqlCon = new SqlConnection(connectionString))
+                {
+                    sqlCon.Open();
+                    string query = " SELECT * FROM [NEWTEMPDB].[dbo].[Product] Where ProductCode = " + id + "";
+                    SqlDataAdapter sqlDa = new SqlDataAdapter(query, sqlCon);
+                    sqlDa.SelectCommand.Parameters.AddWithValue("@ProductCode ", id);
+                    sqlDa.Fill(dtblOrder);
+                }
+                if (dtblOrder.Rows.Count == 1)
+                {
+                    productModel.ProductName = dtblOrder.Rows[0][1].ToString();
+                    productModel.Unit = Convert.ToInt32(dtblOrder.Rows[0][2].ToString());
+                    productModel.Rate = Convert.ToInt32(dtblOrder.Rows[0][3].ToString());
+                    productModel.Description = Convert.ToInt32(dtblOrder.Rows[0][4].ToString());
+                    productModel.ProductImage = dtblOrder.Rows[0][5].ToString();
+                    string pathA = Server.MapPath(productModel.ProductImage);
+                    byte[] imageByteData = System.IO.File.ReadAllBytes(pathA);
+                    string imageBase64Data = Convert.ToBase64String(imageByteData);
+                    string imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
+                    ViewBag.ImageData = imageDataURL;
+
+
+                    return View(productModel);
+                }
+                else
+                    return RedirectToAction("Index");
+            }
+            catch(Exception ex)
             {
                 return View();
             }

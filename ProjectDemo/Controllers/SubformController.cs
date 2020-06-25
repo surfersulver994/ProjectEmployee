@@ -9,6 +9,8 @@ using ProjectDemo.Models;
 using System.Configuration;
 using System.IO;
 using System.Data.OleDb;
+using System.Web.Script.Serialization;
+using System.Web.Services;
 
 
 namespace ProjectDemo.Controllers
@@ -272,27 +274,6 @@ namespace ProjectDemo.Controllers
             return View(dtblSubform);
         }
 
-
-        [HttpPost]
-
-        public JsonResult AjaxMethod(string type, int value)
-        {
-            CascadingModel model = new CascadingModel();
-            switch (type)
-            {
-                //case "ProductID":
-                //    model.ProductImageA = PopulateDropDown("SELECT StateId, StateName FROM States WHERE CountryId = " + value, "StateName", "StateId");
-                //    break;
-                //case "ProductIDA":
-                //    model.UnitA = PopulateDropDown("SELECT CityId, CityName FROM Cities WHERE StateId = " + value, "CityName", "CityId");
-                //    break;
-                //case "ProductIDB":
-                //    model.RateA = PopulateDropDown("SELECT CityId, CityName FROM Cities WHERE StateId = " + value, "CityName", "CityId");
-                //    break;
-            }
-            return Json(model);
-        }
-
         [HttpPost]
         public ActionResult Index(HttpPostedFileBase postedFile)
         {
@@ -354,17 +335,17 @@ namespace ProjectDemo.Controllers
                                         string OrderID = dr.Field<double>("OrderID").ToString();
                                         string ProductCode = dr.Field<double>("ProductCode").ToString();
                                         string Quantity = dr.Field<double>("Quantity").ToString();
-                                        OrderUpload(OrderID,ProductCode,Quantity);
-                                        
+                                        OrderUpload(OrderID, ProductCode, Quantity);
+
                                     }
                                 }
                                 catch (Exception ex)
                                 {
- 
+
                                 }
                             }
 
-                          
+
                             using (SqlConnection sqlCon = new SqlConnection(connectionString))
                             {
                                 sqlCon.Open();
@@ -372,7 +353,7 @@ namespace ProjectDemo.Controllers
                                 sqlDa.Fill(dtblSubform);
                             }
 
-                            connExcel.Close();  
+                            connExcel.Close();
                         }
                     }
                 }
@@ -382,7 +363,7 @@ namespace ProjectDemo.Controllers
 
         private void OrderUpload(string OrderID, string ProductCode, string Quantity)
         {
-            string ProductImage=string.Empty;
+            string ProductImage = string.Empty;
             int Unit = 0;
             int Rate = 0;
             int Amount = 0;
@@ -390,10 +371,10 @@ namespace ProjectDemo.Controllers
             {
                 using (SqlConnection sqlCon = new SqlConnection(connectionString))
                 {
-                    
+
                     sqlCon.Open();
                     DataTable dtblSubform = new DataTable();
-                    SqlDataAdapter sqlDaa = new SqlDataAdapter("SELECT [ProductImage],[Unit],[Rate] FROM [NEWTEMPDB].[dbo].[Product] WHERE [ProductCode]="+ProductCode+"", sqlCon);
+                    SqlDataAdapter sqlDaa = new SqlDataAdapter("SELECT [ProductImage],[Unit],[Rate] FROM [NEWTEMPDB].[dbo].[Product] WHERE [ProductCode]=" + ProductCode + "", sqlCon);
                     sqlDaa.Fill(dtblSubform);
                     foreach (DataRow row in dtblSubform.Rows)
                     {
@@ -420,9 +401,7 @@ namespace ProjectDemo.Controllers
 
             }
         }
-
-
-
- 
     }
+
 }
+

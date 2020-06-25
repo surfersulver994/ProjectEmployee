@@ -24,9 +24,9 @@
             <td>@Model.Rows[i][4]</td>
             <td>@Model.Rows[i][5]</td>
             <td>
-                <a href="@Url.Action("Edit", "Order", new { @id = @Model.Rows[i][0] })">Edit</a>
-                <a href="@Url.Action("Delete", "Order", new { @id = @Model.Rows[i][0] })">Delete</a>
-                <a href="@Url.Action("Index", "Order", new { @id = @Model.Rows[i][0] })">Index</a>
+                <a href="@Url.Action("Edit", "Product", new { @id = @Model.Rows[i][0] })">Edit</a>
+                <a href="@Url.Action("Delete", "Product", new { @id = @Model.Rows[i][0] })">Delete</a>
+                <a href="@Url.Action("ViewProduct", "Product", new { @id = @Model.Rows[i][0] })">Index</a>
             </td>
         </tr>
     }
