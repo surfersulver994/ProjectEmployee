@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\State.cs" />
     <Compile Include="Models\SubformModel.cs" />
     <Compile Include="Models\TestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

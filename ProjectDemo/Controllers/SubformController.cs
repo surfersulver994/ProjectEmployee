@@ -11,6 +11,7 @@ using System.IO;
 using System.Data.OleDb;
 using System.Web.Script.Serialization;
 using System.Web.Services;
+using CascadingComboBox1.Models;
 
 
 namespace ProjectDemo.Controllers
@@ -400,6 +401,21 @@ namespace ProjectDemo.Controllers
             {
 
             }
+        }
+
+
+        public ActionResult StateList(string CountryCode)
+        {
+            IQueryable states = State.GetStates().Where(x => x.CountryCode == CountryCode);
+
+            if (HttpContext.Request.IsAjaxRequest())
+                return Json(new SelectList(
+                                states,
+                                "StateID",
+                                "StateName"), JsonRequestBehavior.AllowGet
+                            );
+
+            return View(states);
         }
     }
 

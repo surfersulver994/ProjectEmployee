@@ -84,13 +84,16 @@
             @Html.ValidationMessageFor(model => model.Amount)
         </div>
 
+        <br></br>
+        <select id="States" name="States"></select>
+        <br></br>
         <p>
             <input type="submit" value="Create" />
         </p>
     </fieldset>
 }
 
-<script>
+@*<script>
 $(document).ready(function()  
 {  
     $("#ProductCodeList").on("change", function ()
@@ -120,7 +123,37 @@ $(document).ready(function()
     });  
 });
 
-</script>  
+</script>  *@
+
+
+
+<script type="text/javascript">
+    $(function () {
+        //$.getJSON("/Home/Countries/List", function (data) {
+        //    debugger;
+        //    var items = "<option>---------------------</option>";
+        //    $.each(data, function (i, country) {
+        //        items += "<option value='" + country.Value + "'>" + country.Text + "</option>";
+        //    });
+        //    $("#Countries").html(items);
+        //});
+
+        $("#ProductCodeList").change(function () {
+            $.getJSON("/Subform/States/List/" + $("#ProductCodeList > option:selected").attr("value"), function (data) {
+                var items = "<option>---------------------</option>";
+                $.each(data, function (i, state) {
+                    items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
+                });
+                $("#States").html(items);
+                document.getElementById("States").selectedIndex = "2";
+            });
+        });
+    });
+</script>
+
+
+
+
 
 
 
