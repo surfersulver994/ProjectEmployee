@@ -1,0 +1,51 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "SubformGridview";
+}
+<h2>SubformGridview</h2>
+<link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Subform ID</th>
+        <th>Order ID</th>
+        <th>Product Code</th>
+        <th>Product Image</th>
+        <th>Unit</th>
+        <th>Rate</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+        <th>Options</th>
+    </tr>
+
+    @for (int i = 0; i < Model.Rows.Count; i++)
+    {
+        <tr>
+            <td>@Model.Rows[i][0]</td>
+            <td>@Model.Rows[i][1]</td>
+            <td>@Model.Rows[i][2]</td>
+            <td>@Model.Rows[i][3]</td>
+            <td>@Model.Rows[i][4]</td>
+            <td>@Model.Rows[i][5]</td>
+            <td>@Model.Rows[i][6]</td>
+            <td>@Model.Rows[i][7]</td>
+            <td>
+                <a href="@Url.Action("Edit", "Subform", new { @id = @Model.Rows[i][0] })">Edit</a>
+                <a href="@Url.Action("Delete", "Subform", new { @id = @Model.Rows[i][0] })">Delete</a>
+                @*<a href="@Url.Action("Subform", "Subform", new { @id = @Model.Rows[i][0] })">Order Subform</a>*@
+@*                @Html.ActionLink("Upload Excel", "UploadExcel", "Subform")*@
+
+            </td>
+        </tr>
+    }
+</table>
+@*<a href="@Url.Action("ImportExcel", "Subform")">Import Excel</a>*@
+    @using (Html.BeginForm("Index", "Subform", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="postedFile"/>
+        <input type="submit" value="Import"/>
+    }
+    <hr/>
+<br/>
+<a href="@Url.Action("Create", "Subform")">Add Suborder Item</a>

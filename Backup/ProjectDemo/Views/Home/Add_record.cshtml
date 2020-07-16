@@ -1,0 +1,82 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add_record</title>
+    <link href="../../bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <form method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right">OrderID</label>
+
+
+                <div class="col-sm-9">
+                    <input type="text" name="OrderID" class="col-xs-10 col-sm-8" />
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right">OrderDate</label>
+
+
+                <div class="col-sm-9">
+                    <input type="text" name="OrderDate" class="col-xs-10 col-sm-8" />
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right">CustomerID</label>
+
+
+                <div class="col-sm-9">
+                    <input type="text" name="CustomerID" class="col-xs-10 col-sm-8" />
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right">TotalQty</label>
+
+
+                <div class="col-sm-9">
+                    <input type="text" name="TotalQty" class="col-xs-10 col-sm-8" />
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right">TotalAmount</label>
+
+
+                <div class="col-sm-9">
+                    <input type="text" name="TotalAmount" class="col-xs-10 col-sm-8" />
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+    </div>
+    @{
+        if (TempData["msg"] != null)
+        {
+            <script>alert('@TempData["msg"]')</script>
+        }
+    }
+</body>
+</html>
