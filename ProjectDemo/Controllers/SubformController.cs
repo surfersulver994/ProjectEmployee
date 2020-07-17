@@ -12,7 +12,8 @@ using System.Data.OleDb;
 using System.Web.Script.Serialization;
 using System.Web.Services;
 using CascadingComboBox1.Models;
-
+using System.Collections;
+using System.Runtime.Remoting.Messaging;
 
 namespace ProjectDemo.Controllers
 {
@@ -182,7 +183,7 @@ namespace ProjectDemo.Controllers
             {
                 subformModel.OrderID = dtblSubform.Rows[0][1].ToString();
                 subformModel.ProductCode = Convert.ToInt32(dtblSubform.Rows[0][2].ToString());
-                subformModel.ProductImage = Convert.ToInt32(dtblSubform.Rows[0][3].ToString());
+                subformModel.ProductImage = Convert.ToString(dtblSubform.Rows[0][3].ToString());
                 subformModel.Unit = Convert.ToInt32(dtblSubform.Rows[0][4].ToString());
                 subformModel.Rate = Convert.ToInt32(dtblSubform.Rows[0][5].ToString());
                 subformModel.Quantity = Convert.ToInt32(dtblSubform.Rows[0][6].ToString());
@@ -404,9 +405,11 @@ namespace ProjectDemo.Controllers
         }
 
 
-        public ActionResult StateList(string CountryCode)
+        public ActionResult StateList(string ProductCode)
         {
-            IQueryable states = State.GetStates().Where(x => x.CountryCode == CountryCode);
+            ProductCode = "2";
+            State A = new State();
+            IList states = (IList)A.GetStates().Where(x => x.Value == ProductCode);
 
             if (HttpContext.Request.IsAjaxRequest())
                 return Json(new SelectList(
@@ -417,7 +420,28 @@ namespace ProjectDemo.Controllers
 
             return View(states);
         }
-    }
 
+        public List<SelectListItem> GetStates()
+        {
+            List<SelectListItem> ls = new List<SelectListItem>();
+            string connectionstring = @"data source=desktop-7r1i2hk; initial catalog=newtempdb; integrated security=true; multipleactiveresultsets=true";
+            using (SqlConnection sqlcon = new SqlConnection(connectionstring))
+            {
+                DataTable dtblproductcode = new DataTable();
+                SqlDataAdapter sqldaa = new SqlDataAdapter("select * FROM [NEWTEMPDB].[dbo].[Subform]", sqlcon);
+                sqldaa.Fill(dtblproductcode);
+                //List<int> productcodelist = new List<int>();
+                foreach (DataRow dr in dtblproductcode.Rows)
+                {
+                    int stateid = dr.Field<int>("rate");
+                    int statename = dr.Field<int>("rate");
+                    ls.Add(new SelectListItem() { Text = stateid.ToString(), Value = stateid.ToString() });
+                    ls.Add(new SelectListItem() { Text = statename.ToString(), Value = statename.ToString() });
+                }
+            }
+            return ls;
+        }
+    }
 }
+
 
