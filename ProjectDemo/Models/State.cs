@@ -194,7 +194,7 @@ namespace CascadingComboBox1.Models
 
         public static IQueryable<State> GetStates()
         {
-            var a = "2";
+            var a = "1";
             string connectionstring = @"data source=desktop-7r1i2hk; initial catalog=newtempdb; integrated security=true; multipleactiveresultsets=true";
             using (SqlConnection sqlcon = new SqlConnection(connectionstring))
             {
