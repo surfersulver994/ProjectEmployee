@@ -213,8 +213,8 @@ namespace CascadingComboBox1.Models
 
                 }
                 ////////viewbag code end
-                var Aqueryable = productcodelist.AsQueryable();
-                return list<Aqueryable>
+                //var Aqueryable = productcodelist.AsQueryable();
+                //return list<Aqueryable>
             }
 
         }
