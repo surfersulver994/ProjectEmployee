@@ -403,23 +403,17 @@ namespace ProjectDemo.Controllers
 
             }
         }
-
-
         public ActionResult StateList(string ProductCode)
         {
-            State A = new State();
-            IList states = (IList)A.GetStates().Where(x => x.Value == ProductCode);
-
+            BindToProductCode(ProductCode);
             if (HttpContext.Request.IsAjaxRequest())
                 return Json(new SelectList(
                                 states,
                                 "StateID",
                                 "StateName"), JsonRequestBehavior.AllowGet
                             );
-
             return View(states);
         }
-
         public List<SelectListItem> GetStates()
         {
             List<SelectListItem> ls = new List<SelectListItem>();
@@ -440,7 +434,32 @@ namespace ProjectDemo.Controllers
             }
             return ls;
         }
+        private void BindToProductCode(string productCode)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection con = new SqlConnection("data source=desktop-7r1i2hk; initial catalog=newtempdb; integrated security=true; multipleactiveresultsets=true"))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("select * FROM [NEWTEMPDB].[dbo].[Subform]", con);
+                cmd.CommandType = CommandType.Text;
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+                con.Close();
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    var result = from dt in ds.Tables[0].AsEnumerable()
+                                 where (dt.Field<string>("ProductCode") == productCode)
+                                 select new
+                                 {
+                                     Name = dt.Field<string>("EmpName"),
+                                     Location = dt.Field<string>("Location"),
+                                 }.ToString().ToList();
+
+                }
+            }
+        }
     }
 }
+
 
 
