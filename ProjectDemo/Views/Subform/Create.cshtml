@@ -138,7 +138,7 @@
             $.getJSON("/Subform/ProductCodeList/" + $("#ProductCodeList > option:selected").attr("value"), function (data) {
                 var items = "<option>---------------------</option>";
                 $.each(data, function (i, state) {
-                    items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
+                    items += "<option value='" + product.Value + "'>" + product.Text + "</option>";
                 });
                 $("#States").html(items);
                 document.getElementById("States").selectedIndex = "2";
