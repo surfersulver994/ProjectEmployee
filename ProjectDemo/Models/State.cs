@@ -6,6 +6,7 @@ public class State
     public string ProductCode { get; set; }
     public int StateID { get; set; }
     public string Unit { get; set; }
+    public int Rate { get; set; }
 
 
     public static IQueryable<State> GetStates()
@@ -29,6 +30,12 @@ public class State
                         ProductCode = "7",
                         StateID=13,
                         Unit = "grams"
+                    },
+                new State
+                    {
+                        ProductCode = "2",
+                        StateID=29,
+                        Unit = "pectain"
                     }
             }.AsQueryable();
     }

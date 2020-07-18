@@ -86,7 +86,7 @@
     <br></br>
     <select id="Prada" name="Unit"></select>
     <br></br>
-    <select id="Rate" name="Rate"></select>
+    <select id="Nada" name="Nada"></select>
     <br></br>
     <p>
         <input type="submit" value="Create" />
@@ -142,11 +142,18 @@
 
                 //code for unit
                 $.each(data, function (i, state) {
-                    debugger;
                     items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
                 });
                 $("#Prada").html(items);
+                $("#Nada").html(items);
                 document.getElementById("Prada").selectedIndex = "1";
+                document.getElementById("Nada").selectedIndex = "2";
+
+
+
+
+
+
             });
         });
     });
