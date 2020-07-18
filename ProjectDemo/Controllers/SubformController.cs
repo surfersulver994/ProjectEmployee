@@ -404,7 +404,7 @@ namespace ProjectDemo.Controllers
 
             }
         }
-        public ActionResult StateList(string ProductCode)
+        public ActionResult ProductCodeList(string ProductCode)
         {
             BindToProductCode(ProductCode);
             if (HttpContext.Request.IsAjaxRequest())
