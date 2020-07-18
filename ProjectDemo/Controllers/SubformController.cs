@@ -23,6 +23,7 @@ namespace ProjectDemo.Controllers
         //string OrderId = ApathX.Substring(25);
         string OrderId = "";
         string connectionString = @"data source=DESKTOP-7R1I2HK; initial catalog=NEWTEMPDB; integrated security=True; MultipleActiveResultSets=True";
+        private EnumerableRowCollection<List<char>> resultList;
 
 
         //
@@ -408,11 +409,11 @@ namespace ProjectDemo.Controllers
             BindToProductCode(ProductCode);
             if (HttpContext.Request.IsAjaxRequest())
                 return Json(new SelectList(
-                                states,
+                                resultList,
                                 "StateID",
                                 "StateName"), JsonRequestBehavior.AllowGet
                             );
-            return View(states);
+            return View(resultList);
         }
         public List<SelectListItem> GetStates()
         {
@@ -434,7 +435,7 @@ namespace ProjectDemo.Controllers
             }
             return ls;
         }
-        private void BindToProductCode(string productCode)
+        private EnumerableRowCollection<List<char>> BindToProductCode(string productCode)
         {
             DataSet ds = new DataSet();
             using (SqlConnection con = new SqlConnection("data source=desktop-7r1i2hk; initial catalog=newtempdb; integrated security=true; multipleactiveresultsets=true"))
@@ -448,15 +449,16 @@ namespace ProjectDemo.Controllers
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     var result = from dt in ds.Tables[0].AsEnumerable()
-                                 where (dt.Field<string>("ProductCode") == productCode)
+                                 where (dt.Field<int>("ProductCode").ToString() == productCode)
                                  select new
                                  {
-                                     Unit = dt.Field<string>("Unit"),
-                                     Rate = dt.Field<string>("Location"),
+                                     Unit = dt.Field<int>("Unit"),
+                                     Rate = dt.Field<int>("Rate"),
                                  }.ToString().ToList();
-
+               
                 }
             }
+            return resultList;
         }
     }
 }
