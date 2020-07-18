@@ -416,7 +416,7 @@ namespace ProjectDemo.Controllers
         //    return View(resultList);
         //}
 
-        private void BindToProductCode(string productCode)
+        private void BindToProductCodeX(string productCode)
         {
             string constring = @"data source=DESKTOP-7R1I2HK; initial catalog=NEWTEMPDB; integrated security=True; MultipleActiveResultSets=True";
             using (SqlConnection con = new SqlConnection(constring))
@@ -436,7 +436,7 @@ namespace ProjectDemo.Controllers
             }
         }
 
-        public List<SelectListItem> GetStates()
+        public List<SelectListItem> GetStatesX()
         {
             List<SelectListItem> ls = new List<SelectListItem>();
             string connectionstring = @"data source=desktop-7r1i2hk; initial catalog=newtempdb; integrated security=true; multipleactiveresultsets=true";
@@ -455,9 +455,24 @@ namespace ProjectDemo.Controllers
                 }
             }
             return ls;
+        
         }
 
-     
+        public ActionResult StateList(string CountryCode)
+        {
+            IQueryable states = State.GetStates().Where(x => x.CountryCode == CountryCode);
+
+            if (HttpContext.Request.IsAjaxRequest())
+                return Json(new SelectList(
+                                states,
+                                "StateID",
+                                "StateName"), JsonRequestBehavior.AllowGet
+                            );
+
+            return View(states);
+        }
+
+
     }
 }
 
