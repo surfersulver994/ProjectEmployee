@@ -458,7 +458,7 @@ namespace ProjectDemo.Controllers
 
         }
 
-        public ActionResult StateList(string CountryCode)
+        public ActionResult ProductList(string CountryCode)
         {
             IQueryable states = State.GetStates().Where(x => x.CountryCode == CountryCode);
 
