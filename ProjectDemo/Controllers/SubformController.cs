@@ -466,7 +466,7 @@ namespace ProjectDemo.Controllers
                 return Json(new SelectList(
                                 states,
                                 "StateID",
-                                "StateName"), JsonRequestBehavior.AllowGet
+                                "Unit"), JsonRequestBehavior.AllowGet
                             );
 
             return View(states);

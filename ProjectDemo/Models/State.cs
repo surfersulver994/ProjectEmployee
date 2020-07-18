@@ -5,7 +5,7 @@ public class State
 {
     public string CountryCode { get; set; }
     public int StateID { get; set; }
-    public string StateName { get; set; }
+    public string Unit { get; set; }
 
     public static IQueryable<State> GetStates()
     {
@@ -15,19 +15,19 @@ public class State
                     {
                         CountryCode = "2",
                         StateID=11,
-                        StateName = "pieces"
+                        Unit = "pieces"
                     },
                 new State
                     {
                         CountryCode = "3",
                         StateID=12,
-                        StateName = "kilos"
+                        Unit = "kilos"
                     },
                 new State
                     {
                         CountryCode = "7",
                         StateID=13,
-                        StateName = "grams"
+                        Unit = "grams"
                     }
             }.AsQueryable();
     }
