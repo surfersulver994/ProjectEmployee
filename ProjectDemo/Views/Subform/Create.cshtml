@@ -135,7 +135,7 @@
         //});
 
         $("#ProductCodeList").change(function () {
-            $.getJSON("/Subform/States/List/" + $("#ProductCodeList > option:selected").attr("value"), function (data) {
+            $.getJSON("/Subform/ProductCodeList/List/" + $("#ProductCodeList > option:selected").attr("value"), function (data) {
                 var items = "<option>---------------------</option>";
                 $.each(data, function (i, state) {
                     items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
