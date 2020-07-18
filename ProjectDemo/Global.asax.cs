@@ -24,9 +24,9 @@ namespace ProjectDemo
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-              "StatesList",
-              "Subform/States/List/{ProductCode}",
-              new { controller = "Subform", action = "StateList", ProductCode = "" }
+              "ProductsList",
+              "Subform/ProductCodeList/{ProductCode}",
+              new { controller = "Subform", action = "ProductCodeList", ProductCode = "" }
           );
 
             routes.MapRoute(
