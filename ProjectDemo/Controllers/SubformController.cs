@@ -23,7 +23,6 @@ namespace ProjectDemo.Controllers
         //string OrderId = ApathX.Substring(25);
         string OrderId = "";
         string connectionString = @"data source=DESKTOP-7R1I2HK; initial catalog=NEWTEMPDB; integrated security=True; MultipleActiveResultSets=True";
-        private EnumerableRowCollection<List<char>> resultList;
 
 
         //
@@ -410,11 +409,32 @@ namespace ProjectDemo.Controllers
             if (HttpContext.Request.IsAjaxRequest())
                 return Json(new SelectList(
                                 resultList,
-                                "StateID",
-                                "StateName"), JsonRequestBehavior.AllowGet
+                                "ProductCode",
+                                "Unit"), JsonRequestBehavior.AllowGet
                             );
             return View(resultList);
         }
+
+        private void BindToProductCode(string productCode)
+        {
+            string constring = @"data source=DESKTOP-7R1I2HK; initial catalog=NEWTEMPDB; integrated security=True; MultipleActiveResultSets=True";
+            using (SqlConnection con = new SqlConnection(constring))
+            {
+                using (SqlCommand cmd = new SqlCommand("SELECT Unit,Rate from [dbo].[Product] Where ProductCode="+ productCode+"", con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        using (DataTable dt = new DataTable())
+                        {
+                            sda.Fill(dt);
+                            
+                        }
+                    }
+                }
+            }
+        }
+
         public List<SelectListItem> GetStates()
         {
             List<SelectListItem> ls = new List<SelectListItem>();
@@ -435,33 +455,22 @@ namespace ProjectDemo.Controllers
             }
             return ls;
         }
-        private EnumerableRowCollection<List<char>> BindToProductCode(string productCode)
+
+        public IList<Product> BindToProductCode()
         {
-            DataSet ds = new DataSet();
-            using (SqlConnection con = new SqlConnection("data source=desktop-7r1i2hk; initial catalog=newtempdb; integrated security=true; multipleactiveresultsets=true"))
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand("select * FROM [NEWTEMPDB].[dbo].[Subform]", con);
-                cmd.CommandType = CommandType.Text;
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(ds);
-                con.Close();
-                if (ds.Tables[0].Rows.Count > 0)
+            return (xmlDoc1.Descendant("Notifications").Elements("Alerts").Select(s =>
+                new Product
                 {
-                    var result = from dt in ds.Tables[0].AsEnumerable()
-                                 where (dt.Field<int>("ProductCode").ToString() == productCode)
-                                 select new
-                                 {
-                                     Unit = dt.Field<int>("Unit"),
-                                     Rate = dt.Field<int>("Rate"),
-                                 }.ToString().ToList();
-               
-                }
-            }
-            return resultList;
+                    Max = s.Element("Max").Value,
+                    Med = s.Element("Med").Value,
+                    Min = s.Element("Min").Value
+                }).ToList();
         }
+
+
     }
 }
+
 
 
 
