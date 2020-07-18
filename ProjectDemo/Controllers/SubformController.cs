@@ -407,7 +407,6 @@ namespace ProjectDemo.Controllers
 
         public ActionResult StateList(string ProductCode)
         {
-            ProductCode = "2";
             State A = new State();
             IList states = (IList)A.GetStates().Where(x => x.Value == ProductCode);
 

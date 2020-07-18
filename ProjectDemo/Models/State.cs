@@ -5,15 +5,13 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Linq;
 
 namespace CascadingComboBox1.Models
 {
     public class State
     {
-        public string CountryCode { get; set; }
-        public int StateID { get; set; }
-        public string StateName { get; set; }
+        public string Unit { get; set; }
+        public int Rate { get; set; }
 
         public List<SelectListItem> GetStates()
         {
@@ -27,10 +25,10 @@ namespace CascadingComboBox1.Models
                 //List<int> productcodelist = new List<int>();
                 foreach (DataRow dr in dtblproductcode.Rows)
                 {
-                    int rate = dr.Field<int>("rate");
-                    int unit = dr.Field<int>("unit");
-                    ls.Add(new SelectListItem() { Text = rate.ToString(), Value = rate.ToString() });
-                    ls.Add(new SelectListItem() { Text = unit.ToString(), Value = unit.ToString() });
+                    int Rate = dr.Field<int>("Rate");
+                    int Unit = dr.Field<int>("Unit");
+                    ls.Add(new SelectListItem() { Text = Rate.ToString(), Value = Rate.ToString() });
+                    ls.Add(new SelectListItem() { Text = Unit.ToString(), Value = Unit.ToString() });
                 }
             }
             return ls.ToList();
