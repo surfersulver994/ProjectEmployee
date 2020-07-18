@@ -405,6 +405,8 @@ namespace ProjectDemo.Controllers
         }
         public ActionResult ProductCodeList(string ProductCode)
         {
+
+            IQueryable products = State.GetStates().Where(x => x.CountryCode == CountryCode);
             BindToProductCode(ProductCode);
             if (HttpContext.Request.IsAjaxRequest())
                 return Json(new SelectList(
