@@ -11,17 +11,6 @@ public class State
     {
         return new List<State>
             {
-            var a = new List<string>();
-            var queryable = list.AsQueryable();
-    }
-
-
-
-
-    public static IQueryable<State> SqlGetStates()
-    {
-        return new List<State>
-            {
                 new State
                     {
                         CountryCode = "CA",

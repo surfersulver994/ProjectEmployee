@@ -458,18 +458,7 @@ namespace ProjectDemo.Controllers
             return ls;
         }
 
-        public IList<Product> BindToProductCode()
-        {
-            return (xmlDoc1.Descendant("Notifications").Elements("Alerts").Select(s =>
-                new Product
-                {
-                    Max = s.Element("Max").Value,
-                    Med = s.Element("Med").Value,
-                    Min = s.Element("Min").Value
-                }).ToList();
-        }
-
-
+     
     }
 }
 
