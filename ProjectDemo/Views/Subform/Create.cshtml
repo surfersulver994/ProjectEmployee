@@ -138,12 +138,26 @@
         $("#ProductCodeList").change(function () {
             $.getJSON("/Subform/ProductCodeURL/List/" + $("#ProductCodeList > option:selected").attr("value"), function (data) {
                 var items = "<option>---------------------</option>";
+
+
+                //code for unit
                 $.each(data, function (i, state) {
                     debugger;
                     items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
                 });
                 $("#Prada").html(items);
                 document.getElementById("Prada").selectedIndex = "1";
+
+
+                //code for rate
+                $.each(data, function (i, state) {
+                    debugger;
+                    items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
+                });
+                $("#Prada").html(items);
+                document.getElementById("Prada").selectedIndex = "1";
+
+
             });
         });
     });
