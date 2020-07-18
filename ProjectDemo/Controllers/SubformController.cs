@@ -11,7 +11,6 @@ using System.IO;
 using System.Data.OleDb;
 using System.Web.Script.Serialization;
 using System.Web.Services;
-using CascadingComboBox1.Models;
 using System.Collections;
 using System.Runtime.Remoting.Messaging;
 
@@ -403,19 +402,19 @@ namespace ProjectDemo.Controllers
 
             }
         }
-        public ActionResult ProductCodeList(string ProductCode)
-        {
+        //public ActionResult ProductCodeList(string ProductCode)
+        //{
 
-            IQueryable products = State.GetStates().Where(x => x.CountryCode == CountryCode);
-            BindToProductCode(ProductCode);
-            if (HttpContext.Request.IsAjaxRequest())
-                return Json(new SelectList(
-                                resultList,
-                                "ProductCode",
-                                "Unit"), JsonRequestBehavior.AllowGet
-                            );
-            return View(resultList);
-        }
+        //    IQueryable products = State.GetStates().Where(x => x.CountryCode == CountryCode);
+        //    BindToProductCode(ProductCode);
+        //    if (HttpContext.Request.IsAjaxRequest())
+        //        return Json(new SelectList(
+        //                        resultList,
+        //                        "ProductCode",
+        //                        "Unit"), JsonRequestBehavior.AllowGet
+        //                    );
+        //    return View(resultList);
+        //}
 
         private void BindToProductCode(string productCode)
         {
