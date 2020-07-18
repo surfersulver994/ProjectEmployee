@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace CascadingComboBox1.Models
 {
-    public class State
+    public class Product
     {
         public string Unit { get; set; }
         public int Rate { get; set; }
