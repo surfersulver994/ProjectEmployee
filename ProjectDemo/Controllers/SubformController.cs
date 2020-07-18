@@ -451,8 +451,8 @@ namespace ProjectDemo.Controllers
                                  where (dt.Field<string>("ProductCode") == productCode)
                                  select new
                                  {
-                                     Name = dt.Field<string>("EmpName"),
-                                     Location = dt.Field<string>("Location"),
+                                     Unit = dt.Field<string>("Unit"),
+                                     Rate = dt.Field<string>("Location"),
                                  }.ToString().ToList();
 
                 }
