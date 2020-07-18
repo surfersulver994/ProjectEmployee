@@ -14,20 +14,20 @@
     <legend>SubformModel</legend>
 
     @*        <div class="editor-label">
-        @Html.LabelFor(model => model.SubformID)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.SubformID)
-        @Html.ValidationMessageFor(model => model.SubformID)
-    </div>*@
+            @Html.LabelFor(model => model.SubformID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SubformID)
+            @Html.ValidationMessageFor(model => model.SubformID)
+        </div>*@
 
     @*        <div class="editor-label">
-        @Html.LabelFor(model => model.OrderID)
-    </div>*@
+            @Html.LabelFor(model => model.OrderID)
+        </div>*@
     @*        <div class="editor-field">
-        @Html.EditorFor(model => model.OrderID)
-        @Html.ValidationMessageFor(model => model.OrderID)
-    </div>*@
+            @Html.EditorFor(model => model.OrderID)
+            @Html.ValidationMessageFor(model => model.OrderID)
+        </div>*@
 
     <div class="editor-label">
         @Html.LabelFor(model => model.ProductCode)
@@ -39,9 +39,9 @@
     </div>
 
     @*        <div class="editor-field">
-        @Html.EditorFor(model => model.ProductCode)
-        @Html.ValidationMessageFor(model => model.ProductCode)
-    </div>*@
+            @Html.EditorFor(model => model.ProductCode)
+            @Html.ValidationMessageFor(model => model.ProductCode)
+        </div>*@
 
     <div class="editor-label">
         @Html.LabelFor(model => model.ProductImage)
@@ -84,7 +84,9 @@
     </div>
 
     <br></br>
-    <select id="Prada" name="Prada"></select>
+    <select id="Prada" name="Unit"></select>
+    <br></br>
+    <select id="Rate" name="Rate"></select>
     <br></br>
     <p>
         <input type="submit" value="Create" />
@@ -137,6 +139,7 @@
             $.getJSON("/Subform/ProductCodeURL/List/" + $("#ProductCodeList > option:selected").attr("value"), function (data) {
                 var items = "<option>---------------------</option>";
                 $.each(data, function (i, state) {
+                    debugger;
                     items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
                 });
                 $("#Prada").html(items);

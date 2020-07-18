@@ -7,6 +7,7 @@ public class State
     public int StateID { get; set; }
     public string Unit { get; set; }
 
+
     public static IQueryable<State> GetStates()
     {
         return new List<State>
