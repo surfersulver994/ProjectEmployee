@@ -421,7 +421,7 @@ namespace ProjectDemo.Controllers
             string constring = @"data source=DESKTOP-7R1I2HK; initial catalog=NEWTEMPDB; integrated security=True; MultipleActiveResultSets=True";
             using (SqlConnection con = new SqlConnection(constring))
             {
-                using (SqlCommand cmd = new SqlCommand("SELECT Unit,Rate from [dbo].[Product] Where ProductCode="+ productCode+"", con))
+                using (SqlCommand cmd = new SqlCommand("SELECT Unit,Rate from [dbo].[Product] Where ProductCode=" + productCode + "", con))
                 {
                     cmd.CommandType = CommandType.Text;
                     using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
@@ -429,7 +429,7 @@ namespace ProjectDemo.Controllers
                         using (DataTable dt = new DataTable())
                         {
                             sda.Fill(dt);
-                            
+
                         }
                     }
                 }
@@ -455,7 +455,7 @@ namespace ProjectDemo.Controllers
                 }
             }
             return ls;
-        
+
         }
 
         public ActionResult StateList(string CountryCode)
