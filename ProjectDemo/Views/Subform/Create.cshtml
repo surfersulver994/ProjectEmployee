@@ -84,7 +84,7 @@
     </div>
 
     <br></br>
-    <select id="States" name="States"></select>
+    <select id="Prada" name="Prada"></select>
     <br></br>
     <p>
         <input type="submit" value="Create" />
@@ -134,13 +134,13 @@
         //});
 
         $("#ProductCodeList").change(function () {
-            $.getJSON("/Subform/States/List/" + $("#ProductCodeList > option:selected").attr("value"), function (data) {
+            $.getJSON("/Subform/ProductCodeURL/List/" + $("#ProductCodeList > option:selected").attr("value"), function (data) {
                 var items = "<option>---------------------</option>";
                 $.each(data, function (i, state) {
                     items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
                 });
-                $("#States").html(items);
-                document.getElementById("States").selectedIndex = "1";
+                $("#Prada").html(items);
+                document.getElementById("Prada").selectedIndex = "1";
             });
         });
     });
