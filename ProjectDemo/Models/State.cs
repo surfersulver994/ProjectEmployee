@@ -3,7 +3,7 @@ using System.Linq;
 
 public class State
 {
-    public string CountryCode { get; set; }
+    public string ProductCode { get; set; }
     public int StateID { get; set; }
     public string Unit { get; set; }
 
@@ -13,19 +13,19 @@ public class State
             {   
                 new State
                     {
-                        CountryCode = "2",
+                        ProductCode = "2",
                         StateID=11,
                         Unit = "pieces"
                     },
                 new State
                     {
-                        CountryCode = "3",
+                        ProductCode = "3",
                         StateID=12,
                         Unit = "kilos"
                     },
                 new State
                     {
-                        CountryCode = "7",
+                        ProductCode = "7",
                         StateID=13,
                         Unit = "grams"
                     }

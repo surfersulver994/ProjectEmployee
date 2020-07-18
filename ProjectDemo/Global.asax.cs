@@ -25,8 +25,8 @@ namespace ProjectDemo
 
             routes.MapRoute(
               "StatesList",
-              "Subform/States/List/{CountryCode}",
-              new { controller = "Subform", action = "ProductList", CountryCode = "" }
+              "Subform/States/List/{ProductCode}",
+              new { controller = "Subform", action = "ProductList", ProductCode = "" }
           );
 
             routes.MapRoute(

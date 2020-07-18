@@ -458,9 +458,9 @@ namespace ProjectDemo.Controllers
 
         }
 
-        public ActionResult ProductList(string CountryCode)
+        public ActionResult ProductList(string ProductCode)
         {
-            IQueryable states = State.GetStates().Where(x => x.CountryCode == CountryCode);
+            IQueryable states = State.GetStates().Where(x => x.ProductCode == ProductCode);
 
             if (HttpContext.Request.IsAjaxRequest())
                 return Json(new SelectList(
