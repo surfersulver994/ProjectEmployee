@@ -468,12 +468,6 @@ namespace ProjectDemo.Controllers
                                 "StateID",
                                 "Unit"), JsonRequestBehavior.AllowGet
                             );
-            if (HttpContext.Request.IsAjaxRequest())
-                return Json(new SelectList(
-                                states,
-                                "StateID",
-                                "Rate"), JsonRequestBehavior.AllowGet
-                            );
             return View(states);
         }
 

@@ -16,27 +16,40 @@ public class State
                 new State
                     {
                         ProductCode = "2",
-                        StateID=11,
-                        Unit = "pieces"
-                    },
-                new State
-                    {
-                        ProductCode = "3",
-                        StateID=12,
-                        Unit = "kilos"
-                    },
-                new State
-                    {
-                        ProductCode = "7",
-                        StateID=13,
-                        Unit = "grams"
+                        StateID=99,
+                        Unit = "pieces"//bring in unit
                     },
                 new State
                     {
                         ProductCode = "2",
-                        StateID=29,
-                        Unit = "pectain"
+                        StateID=12,
+                        Unit = "56"//bring in rate
+                    },
+                new State
+                    {
+                        ProductCode = "2",
+                        StateID=13,
+                        Unit = "~/Image/a201101509.png"//bring in image
+                    },
+                new State
+                    {
+                        ProductCode = "3",
+                        StateID=11,
+                        Unit = "kilos"//bring in unit
+                    },
+                   new State
+                    {
+                        ProductCode = "3",
+                        StateID=11,
+                        Unit = "ounces"//bring in rate
+                    },
+                      new State
+                    {
+                        ProductCode = "3",
+                        StateID=11,
+                        Unit = "~/Image/a201101509.png"//bring in image
                     }
+
             }.AsQueryable();
     }
 
