@@ -465,7 +465,7 @@ namespace ProjectDemo.Controllers
             if (HttpContext.Request.IsAjaxRequest())
                 return Json(new SelectList(
                                 states,
-                                "StateID",
+                                "Rate",
                                 "Unit"), JsonRequestBehavior.AllowGet
                             );
             return View(states);
