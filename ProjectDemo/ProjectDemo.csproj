@@ -229,7 +229,6 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\Order\Edit.cshtml" />
-    <Content Include="Views\Subform\Create.cshtml" />
     <Content Include="Views\Subform\SubformGridview.cshtml" />
     <Content Include="Views\Subform\Edit.cshtml" />
     <Content Include="Views\Subform\Index.cshtml" />
@@ -237,6 +236,7 @@
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Product\ViewProduct.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Subform\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

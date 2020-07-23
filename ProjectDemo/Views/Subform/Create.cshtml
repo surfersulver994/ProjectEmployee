@@ -4,17 +4,16 @@
 }
 
 <h2>Create</h2>
-
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>SubformModel</legend>
+<fieldset>
+    <legend>SubformModel</legend>
 
-        @*        <div class="editor-label">
+    @*        <div class="editor-label">
             @Html.LabelFor(model => model.SubformID)
         </div>
         <div class="editor-field">
@@ -22,106 +21,106 @@
             @Html.ValidationMessageFor(model => model.SubformID)
         </div>*@
 
-        @*        <div class="editor-label">
+    @*        <div class="editor-label">
             @Html.LabelFor(model => model.OrderID)
         </div>*@
-        @*        <div class="editor-field">
+    @*        <div class="editor-field">
             @Html.EditorFor(model => model.OrderID)
             @Html.ValidationMessageFor(model => model.OrderID)
         </div>*@
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ProductCode)
-        </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.ProductCode)
+    </div>
 
-        <div class="editor-label">
-            @*@Html.LabelFor(model => model.ProductCode)*@
-            @Html.DropDownList("ProductCodeList", ViewBag.ProductCodeList as SelectList, "")
-        </div>
+    <div class="editor-label">
+        @*@Html.LabelFor(model => model.ProductCode)*@
+        @Html.DropDownList("ProductCodeList", ViewBag.ProductCodeList as SelectList, "")
+    </div>
 
-        @*        <div class="editor-field">
+    @*        <div class="editor-field">
             @Html.EditorFor(model => model.ProductCode)
             @Html.ValidationMessageFor(model => model.ProductCode)
         </div>*@
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ProductImage)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ProductImage)
-            @Html.ValidationMessageFor(model => model.ProductImage)
-        </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.ProductImage)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.ProductImage)
+        @Html.ValidationMessageFor(model => model.ProductImage)
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Unit)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Unit)
-            @Html.ValidationMessageFor(model => model.Unit)
-        </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Unit)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Unit)
+        @Html.ValidationMessageFor(model => model.Unit)
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Rate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Rate)
-            @Html.ValidationMessageFor(model => model.Rate)
-        </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Rate)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Rate)
+        @Html.ValidationMessageFor(model => model.Rate)
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Quantity)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Quantity)
-            @Html.ValidationMessageFor(model => model.Quantity)
-        </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Quantity)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Quantity)
+        @Html.ValidationMessageFor(model => model.Quantity)
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Amount)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Amount)
-            @Html.ValidationMessageFor(model => model.Amount)
-        </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Amount)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Amount)
+        @Html.ValidationMessageFor(model => model.Amount)
+    </div>
 
-        <br></br>
-        <select id="States" name="States"></select>
-        <br></br>
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+    <br></br>
+    <select id="Prada" name="Unit"></select>
+    <br></br>
+    <select id="Nada" name="Nada"></select>
+    <br></br>
+    <select id="Dada" name="Dada"></select>
+    <p>
+        <input type="submit" value="Create" />
+    </p>
+</fieldset>
 }
 
-@*<script>
-$(document).ready(function()  
-{  
-    $("#ProductCodeList").on("change", function ()
-    {
-        var valueA = $("#ProductCodeList").val();
-        console.log(valueA)
-        //var value = dropdown.val();
-        //confi
-        var selectedCountry = $(this).children("option:selected").val();
-        $.ajax(  
-        {  
-            url: '/Product/Index?ProductCode=' + $(this).attr("value"),
-            type: 'GET',  
-            data: "",  
-            contentType: 'application/json; charset=utf-8',  
-            success: function (data)
-            {
-                
-                $("#partialDiv").html(data);  
-            },  
-            error: function()  
-            {
-                console.log(data)
-                alert("error");  
-            }  
-        });  
-    });  
-});
+@*
+<script>
+    $(document).ready(function () {
+        $("#ProductCodeList").on("change", function () {
+            var valueA = $("#ProductCodeList").val();
+            console.log(valueA)
+            //var value = dropdown.val();
+            //confi
+            var selectedCountry = $(this).children("option:selected").val();
+            $.ajax(
+                {
+                    url: '/Product/Index?ProductCode=' + $(this).attr("value"),
+                    type: 'GET',
+                    data: "",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+
+                        $("#partialDiv").html(data);
+                    },
+                    error: function () {
+                        console.log(data)
+                        alert("error");
+                    }
+                });
+        });
+    });
 
 </script>  *@
 
@@ -130,7 +129,6 @@ $(document).ready(function()
 <script type="text/javascript">
     $(function () {
         //$.getJSON("/Home/Countries/List", function (data) {
-        //    debugger;
         //    var items = "<option>---------------------</option>";
         //    $.each(data, function (i, country) {
         //        items += "<option value='" + country.Value + "'>" + country.Text + "</option>";
@@ -139,23 +137,30 @@ $(document).ready(function()
         //});
 
         $("#ProductCodeList").change(function () {
-            $.getJSON("/Subform/States/List/" + $("#ProductCodeList > option:selected").attr("value"), function (data) {
+            $.getJSON("/Subform/ProductCodeURL/List/" + $("#ProductCodeList > option:selected").attr("value"), function (data) {
                 var items = "<option>---------------------</option>";
+
+
+                //code for unit
                 $.each(data, function (i, state) {
                     items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
                 });
-                $("#States").html(items);
-                document.getElementById("States").selectedIndex = "2";
+                $("#Prada").html(items);
+                $("#Nada").html(items);
+                $("#Dada").html(items);
+                document.getElementById("Prada").selectedIndex = "1";
+                document.getElementById("Nada").selectedIndex = "2";
+                document.getElementById("Dada").selectedIndex = "3";
+
+
+
+
+
+
             });
         });
     });
 </script>
-
-
-
-
-
-
 
 <div>
     @Html.ActionLink("Back to List", "SubformGridview")
