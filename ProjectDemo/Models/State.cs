@@ -8,8 +8,7 @@ public class State
     public string ProductCode { get; set; }
     public int StateID { get; set; }
     public string Unit { get; set; }
-    public int Rate { get; set; }
-    public string Image { get; set; }
+    public string Rate { get; set; }
 
     //public static IQueryable<State> GetStates()
     //{
@@ -71,9 +70,9 @@ public class State
             {
                 families.Add(new State
                 {
+                    ProductCode = nwReader["ProductCode"].ToString(),
                     Unit  = nwReader["Unit"].ToString(),
-                    Rate  = Convert.ToInt32(nwReader["Rate"].ToString()),
-                    Image = nwReader["ProductImage"].ToString(),
+                    Rate  = nwReader["Rate"].ToString(),
                 });
             }
 
