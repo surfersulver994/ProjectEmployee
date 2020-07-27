@@ -9,6 +9,7 @@ public class State
     public int StateID { get; set; }
     public string Unit { get; set; }
     public string Rate { get; set; }
+    public string ProductImage { get; set; }
 
     //public static IQueryable<State> GetStates()
     //{
@@ -73,6 +74,7 @@ public class State
                     ProductCode = nwReader["ProductCode"].ToString(),
                     Unit  = nwReader["Unit"].ToString(),
                     Rate  = nwReader["Rate"].ToString(),
+                    ProductImage = nwReader["ProductImage"].ToString()
                 });
             }
 
