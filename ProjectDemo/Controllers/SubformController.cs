@@ -24,6 +24,7 @@ namespace ProjectDemo.Controllers
         string connectionString = @"data source=DESKTOP-7R1I2HK; initial catalog=NEWTEMPDB; integrated security=True; MultipleActiveResultSets=True";
 
 
+
         //
         // GET: /Subform/
 
@@ -87,8 +88,9 @@ namespace ProjectDemo.Controllers
                     ViewBag.ProductCodeList = list;
                 }
                 //viewbag code end
-
+               
             }
+          
             return View(new SubformModel());
 
             ///viewbag code start
@@ -462,16 +464,26 @@ namespace ProjectDemo.Controllers
         {
             IQueryable states = State.GetStates().Where(x => x.ProductCode == ProductCode);
 
+            //foreach (dynamic str in states)
+            //{
+            //    ViewBag.Rate = ((State)str).Rate;
+            //    ViewBag.ProductImage = ((State)str).ProductImage;
+            //    ViewBag.Unit = ((State)str).Unit;
+
+            //}
+
             if (HttpContext.Request.IsAjaxRequest())
-                return Json(new SelectList(
-                                states,
-                                "Rate",
-                                "Unit"), JsonRequestBehavior.AllowGet
-                            );
+                return Json(states, JsonRequestBehavior.AllowGet);
+
+
+            //if (HttpContext.Request.IsAjaxRequest())
+            //    return Json(new SelectList(
+            //                    states,
+            //                    "Rate",
+            //                    "Unit"), JsonRequestBehavior.AllowGet
+            //                );
             return View(states);
         }
-
-
     }
 }
 
