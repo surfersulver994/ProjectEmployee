@@ -78,7 +78,7 @@ public class State
                 });
             }
 
-            myConnection.Close();
+           myConnection.Close();
 
         }
         var showFamilies = families.ToList();
